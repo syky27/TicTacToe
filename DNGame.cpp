@@ -52,6 +52,8 @@ void DNGame::play()
             if (1) {
                 
             }
+            //test
+            
             cout << "Arrow UP" << endl;
         }
     }
