@@ -131,12 +131,43 @@ void DNWindow::drawCommandLine()
     
     
 }
+
+
+void DNWindow::moveUp(){
+    int y,x;
+    getsyx(y, x);
+    move(y - 1, x);
+    refresh();
+    
+}
+
+void DNWindow::moveDown()
+{
+    int y,x;
+    getsyx(y, x);
+    move(y + 1, x);
+    refresh();
+    
+}
+
 void DNWindow::moveLeft()
 {
     int y,x;
     getsyx(y, x);
-     move(y, x-1);
+    move(y, x-1);
+    refresh();
 }
+
+void DNWindow::moveRight()
+{
+    int y,x;
+    getsyx(y, x);
+    move(y, x + 1);
+    refresh();
+    
+}
+
+
 
 
 
@@ -144,12 +175,6 @@ void DNWindow::moveLeft()
 void DNWindow::drawMainMenu()
 {
     int ch;
-//    
-//	initscr();			/* Start curses mode 		*/
-//	raw();				/* Line buffering disabled	*/
-//	keypad(stdscr, TRUE);		/* We get F1, F2 etc..		*/
-//	noecho();			/* Don't echo() while we do getch */
-//    
     drawHeader();
     drawMenu();
     drawOptions();
@@ -157,7 +182,7 @@ void DNWindow::drawMainMenu()
     string input = "";
     
     drawCommandLine();
-    while (ch = getch()) {
+    while ((ch = getch())) {
         if (ch == 127) {
             int y,x;
             getsyx(y, x);
@@ -200,7 +225,7 @@ bool DNWindow::executeMenuOption(string input)
         switch (atoi(input.c_str())) {
             case 1:{
                 DNGame a(1);
-                drawBoard(3,0,10);
+                drawBoard(3,0,25);
                 a.play();
                 break;
             }
@@ -239,6 +264,11 @@ void DNWindow::clearScreen()
 
 void DNWindow::drawBoard(int start_Y, int start_X, int size)
 {
+
+    int max_y, max_x;
+    getmaxyx(stdscr, max_y, max_x);
+    
+    
     start_color();
     use_default_colors();
 	init_pair(2, COLOR_WHITE, -1);
@@ -246,101 +276,18 @@ void DNWindow::drawBoard(int start_Y, int start_X, int size)
     attron(2);
     clearScreen();
     drawHeader();
+    
+    
     move(start_Y,start_X);
+    
     for (int y = 0; y < size; y++) {
-
         for (int x = 0; x < size * 2; x++) {
-            if (x % 2) {
-                mvaddch(start_Y + y, start_X + x, ' ');
-            }else{
                 mvaddch(start_Y + y, start_X + x, ACS_CKBOARD);
-            }
-            
         }
     }
     
-    
-    
-    
-    
-    {
-//    for (int i = 0; i < size * 2 + 1; i++) {
-//        if (i == 0) {
-//            mvaddch(start_Y, start_X + i, ACS_ULCORNER);
-//            refresh();
-//            continue;
-//        }
-//        if (i == size * 2) {
-//            mvaddch(start_Y, start_X + i, ACS_URCORNER);
-//            refresh();
-//            continue;
-//        }
-//        if (i % 2 == 0) {
-//            mvaddch(start_Y, start_X + i, ACS_TTEE);
-//            refresh();
-//            continue;
-//        }else{
-//            mvaddch(start_Y, start_X + i, ACS_HLINE);
-//            refresh();
-//            continue;
-//        }
-//        
-//        
-//    }
-//    
-//    for (int j = 2; j < 2 * size -1; j++) {
-//
-//    for (int i = 0; i < size * 2 + 1; i++) {
-//        if ( j == 1 && i % 2 == 0) {
-//            //mvaddch(start_Y +j, start_X + i, ACS_VLINE);
-//            continue;
-//        }else if (j == 1){
-//            continue;
-//        }
-//        if ((j % 2 == 0 && i %2 == 0) ) {
-//            mvaddch(start_Y +j, start_X + i, ACS_VLINE);
-//            refresh();
-//            continue;
-//        }
-//        if (j%2 == 0) {
-//            continue;
-//        }
-//        if (i == 0) {
-//            mvaddch(start_Y +j, start_X + i, ACS_LTEE);
-//            refresh();
-//            continue;
-//        }
-//        if (i == size * 2) {
-//            mvaddch(start_Y +j, start_X + i, ACS_RTEE);
-//            refresh();
-//            continue;
-//        }
-//        if (i % 2 == 0) {
-//            mvaddch(start_Y+j, start_X + i, ACS_PLUS);
-//            refresh();
-//            continue;
-//        }else{
-//            mvaddch(start_Y+j, start_X + i, ACS_HLINE);
-//            refresh();
-//            continue;
-//        }
-//        
-//        
-//    }
-//    }
-//    
-//    
-    
-    }
-    
-    
-    
-    refresh();
-
-    
-    return;
-    
-    
+  refresh();
+  return;
 }
 
 bool DNWindow::startLocalGameTwoHumans(string & nameOfPlayerOne, string &  nameOfPlayerTwo)
@@ -382,6 +329,43 @@ bool DNWindow::startLocalGameTwoHumans(string & nameOfPlayerOne, string &  nameO
     
     return false;
 }
+
+
+void DNWindow::allowMacDev(){
+    keypad(stdscr, TRUE);
+}
+
+
+
+void DNWindow::getCursorPosition(int & x, int &y)
+{
+     getsyx(y, x);
+}
+
+
+void DNWindow::drawSymbol(DNCellState state, int & x, int &y){
+    getsyx(y, x);
+    if (state == CROSS) {
+        addch('X');
+        beep();
+        moveRight();
+        moveLeft();
+    }else if (state == CIRCLE){
+        addch('O');
+        beep();
+        moveRight();
+        moveLeft();
+    }else{
+        cout << "Fekal, prazdny symbol" << endl;
+    }
+}
+
+
+
+void DNWindow::sound(){
+    beep();
+}
+
 
 
 void DNWindow::terminate()

@@ -34,8 +34,10 @@ public:
     void moveLeft();
     void moveUp();
     void moveDown();
-    bool triggerTurn();
+    bool triggerTurn(int y, int x);
     void setColorSet(int i);
+    DNCellState getSymbol();
+    string getNick();
     
     
 };

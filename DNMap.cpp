@@ -115,8 +115,13 @@ DNCellState DNMap::checkForWinnerWithSymbol(DNCellState symbol){                
     return EMPTY;                                           // If we got to here, no winner has been detected,
 }
 
-
-
+bool DNMap::recordMove(DNPlayer * player, int y, int x, DNCellState winner){
+    if (this->my_map[x][y]->getState() == EMPTY) {
+        this->my_map[x][y]->setState(player->getSymbol());
+        return true;
+    }
+    return false;
+}
 
 
 

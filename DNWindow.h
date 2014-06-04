@@ -10,6 +10,8 @@
 #define __TicTacToe__DNWindow__
 
 #include <iostream>
+#include "DNCellState.h"
+#include <unistd.h> 
 using namespace std;
 class DNWindow
 {
@@ -25,12 +27,30 @@ public:
     void middleString(std::string stringToPlace, int line);
     void drawMenu();
     void drawCommandLine();
-    void moveLeft();
+
     void drawMainMenu();
     bool executeMenuOption(std::string input);
     void clearScreen();
     void drawBoard(int start_Y, int start_X, int size);
     bool startLocalGameTwoHumans(string & nameOfPlayerOne, string & nameOfPlayerTwo);
+    void allowMacDev(void);
+    
+    
+    void moveUp();
+    void moveDown();
+    void moveLeft();
+    void moveRight();
+    
+    void getCursorPosition(int & x, int &y);
+    void drawSymbol(DNCellState state, int & x, int &y);
+    
+    
+    void sound();
+    
+    
+    
+    
+    
 
     void terminate();
     

@@ -18,3 +18,20 @@ void DNPlayer::setColorSet(int i)
 {
     this->colorSet = i;
 }
+
+
+bool DNPlayer::triggerTurn(int y, int x)
+{
+    return false;
+}
+
+
+DNCellState DNPlayer::getSymbol()
+{
+    return symbol;
+}
+
+string DNPlayer::getNick()
+{
+    return nick;
+}

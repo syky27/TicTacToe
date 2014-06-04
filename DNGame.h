@@ -15,13 +15,20 @@ class DNGame {
     DNPlayer *playerOne;
     DNPlayer *playerTwo;
     DNMap map;
+    int y_sizeOfBoard;
+    int x_sizeOfBoard;
+    
+    unsigned int y_offset, x_offset;
+    
     void initLocalGameTwoHumans();
     void initLocalGameHumanVsCPU();
+    
 
 public:
     DNGame(int i);
     ~DNGame();
     void play();
+    
 };
 
 

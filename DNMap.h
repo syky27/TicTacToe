@@ -11,6 +11,7 @@
 
 #include <iostream>
 #include "DNCell.h"
+#include "DNPlayer.h"
 using namespace std;
 
 
@@ -32,6 +33,8 @@ public:
      * returns EMPTY when no winner
      */
     DNCellState checkForWinnerWithSymbol(DNCellState symbol);
+    bool recordMove(DNPlayer * player, int y, int x, DNCellState winner);
+    
 
 };
 
