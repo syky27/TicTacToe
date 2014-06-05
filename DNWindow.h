@@ -33,6 +33,7 @@ public:
     void clearScreen();
     void drawBoard(int start_Y, int start_X, int size);
     bool startLocalGameTwoHumans(string & nameOfPlayerOne, string & nameOfPlayerTwo);
+    bool startLocalGameHumanVsCPU(string & nameOfPlayerOne);
     void allowMacDev(void);
     
     

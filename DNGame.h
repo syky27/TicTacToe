@@ -10,10 +10,13 @@
 #define __TicTacToe__DNGame__
 #include "DNPlayer.h"
 #include "DNMap.h"
+#include "DNBotPlayer.h"
 #include <iostream>
 class DNGame {
     DNPlayer *playerOne;
     DNPlayer *playerTwo;
+
+    
     DNMap map;
     int y_sizeOfBoard;
     int x_sizeOfBoard;
@@ -28,6 +31,7 @@ public:
     DNGame(int i);
     ~DNGame();
     void play();
+    void playVsCPU();
     
 };
 

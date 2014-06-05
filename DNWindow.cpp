@@ -225,12 +225,16 @@ bool DNWindow::executeMenuOption(string input)
         switch (atoi(input.c_str())) {
             case 1:{
                 DNGame a(1);
-                drawBoard(3,0,25);
+                drawBoard(3,0,100);
                 a.play();
                 break;
             }
-            case 2:
+            case 2:{
+                DNGame a(2);
+                drawBoard(3,0,100);
+//                a.play();
                 //TODO: Player player
+            }
                 break;
             case 3:
                 //TODO: Player player
@@ -329,6 +333,36 @@ bool DNWindow::startLocalGameTwoHumans(string & nameOfPlayerOne, string &  nameO
     
     return false;
 }
+
+
+bool DNWindow::startLocalGameHumanVsCPU(string &nameOfPlayerOne)
+{
+    //    noraw();a
+    struct winsize w;
+    ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
+    clearScreen();
+    drawHeader();
+    char ch;
+    middleString("Please enter name of human player: ", w.ws_row / 2);
+    bool nameOfFirstPlayer = false;
+    while ((ch = getch())) {
+        addch(ch);
+        if (ch == 10) {
+            if (!nameOfPlayerOne.length()) {
+                    middleString("Name cannot be empty, try again: ", w.ws_row / 2);
+                }else{
+                    clearScreen();
+                    drawHeader();
+                }
+        
+        }
+       nameOfPlayerOne += ch;
+    
+    }
+    return false;
+}
+
+
 
 
 void DNWindow::allowMacDev(){
