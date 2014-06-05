@@ -9,16 +9,17 @@
 #include "DNMap.h"
 #include "DNCell.h"
 #include "DNCellState.h"
+#include "DNLogService.h"
 
 
 
 DNMap::DNMap(){
-    this->size = 25;
-    this->col = 25;
-    this->row = 25;
+    this->size = 100;
+    this->col = 100;
+    this->row = 100;
     this->goal = 5;
-    for (size_t i = 0; i < 25; i++) {
-        for (size_t j = 0; j < 25; j++) {
+    for (size_t i = 0; i < 100; i++) {
+        for (size_t j = 0; j < 100; j++) {
             my_map[i][j] = new DNCell(i,j);
         }
     }
@@ -26,8 +27,8 @@ DNMap::DNMap(){
 }
 
 DNMap::~DNMap(){
-    for (size_t i = 0; i < 25; i++) {
-        for (size_t j = 0; j < 25; j++) {
+    for (size_t i = 0; i < 100; i++) {
+        for (size_t j = 0; j < 100; j++) {
             delete my_map[i][j];
         }
     }
@@ -115,11 +116,17 @@ DNCellState DNMap::checkForWinnerWithSymbol(DNCellState symbol){                
     return EMPTY;                                           // If we got to here, no winner has been detected,
 }
 
-bool DNMap::recordMove(DNPlayer * player, int y, int x, DNCellState winner){
+bool DNMap::recordMove(DNPlayer * player, int y, int x, DNCellState & winner){
+    DNLogService::sharedObject().log(string("x = ") + string(to_string(y)));
+    
     if (this->my_map[x][y]->getState() == EMPTY) {
         this->my_map[x][y]->setState(player->getSymbol());
+        winner = this->checkForWinnerWithSymbol(player->getSymbol());
         return true;
     }
+    
+    
+    
     return false;
 }
 

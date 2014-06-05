@@ -157,11 +157,11 @@ void moveLeft()
 void DNMenuScreen::drawMainMenu()
 {
     int ch;
-  /*
-	initscr();			/* Start curses mode 		*/
-//	raw();				/* Line buffering disabled	*/
-//	keypad(stdscr, TRUE);		/* We get F1, F2 etc..		*/
-//	noecho();			/* Don't echo() while we do getch */
+ 
+	initscr();
+//	raw();
+//	keypad(stdscr, TRUE);
+//	noecho();
 //    
 //    drawHeader();
 //    drawMenu();
@@ -197,9 +197,9 @@ void DNMenuScreen::drawMainMenu()
 //    }
 //    
 //
-//	refresh();			/* Print it on to the real screen */
-////    getch();			/* Wait for user input */
-//	endwin();			/* End curses mode		  */
+//	refresh();
+//// getch();
+//	endwin();
 //    
 //
 

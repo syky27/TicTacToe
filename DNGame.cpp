@@ -11,8 +11,8 @@
 #include "DNPlayer.h"
 #include "DNCellState.h"
 #include "stdio.h"
-
-DNGame::DNGame(int i): y_offset(4), x_offset(0)
+#include "DNLogService.h"
+DNGame::DNGame(int i): y_offset(3), x_offset(0)
 {
     switch (i) {
         case 1:
@@ -52,7 +52,7 @@ void DNGame::play()
     int turnCounter = 0;
     
     
-    while (ch = getchar()) {
+    while ((ch = getchar())) {
 //        cout << ch << endl;
         if (ch == /*0x1B ||*/ '\e') {
             ch = getchar();
@@ -79,12 +79,14 @@ void DNGame::play()
         }
         
         if (ch == 'x') {
+            DNLogService::sharedObject().log(string("Test"));
             int x = 0;
             int y = 0;
             turnCounter++;
             DNCellState state;
             if (turnCounter % 2) {
                 DNWindow::getInstance().getCursorPosition(x, y);
+                DNLogService::sharedObject().log(to_string(x));
                 if (map.recordMove(playerTwo, y - y_offset, x - x_offset, state)) {
                     DNWindow::getInstance().drawSymbol(CIRCLE, y, x);
                 }else{
@@ -102,8 +104,10 @@ void DNGame::play()
             if (state != EMPTY) {
                 if (state == playerTwo->getSymbol()) {
                     cout << playerTwo->getNick() << " is WINNER!!!" << endl;
-                }else{
+                }else if(state == playerOne->getSymbol()){
                     cout << playerOne->getNick() << " is WINNER!!!" << endl;
+                }else{
+                    cout << "fekal error wrong return of state" << endl;
                 }
                 sleep(2);
                 exit(0);

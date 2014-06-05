@@ -21,7 +21,7 @@ public:
     int row;
     int col;
     int goal;
-    DNCell *my_map[25][25];
+    DNCell *my_map[100][100];
     
     
 public:
@@ -33,7 +33,7 @@ public:
      * returns EMPTY when no winner
      */
     DNCellState checkForWinnerWithSymbol(DNCellState symbol);
-    bool recordMove(DNPlayer * player, int y, int x, DNCellState winner);
+    bool recordMove(DNPlayer * player, int y, int x, DNCellState & winner);
     
 
 };

@@ -18,7 +18,7 @@ using namespace std;
 
 void DNWindow::init()
 {
-    int ch;
+
 	initscr();
 	raw();
 	keypad(stdscr, TRUE);
@@ -184,7 +184,7 @@ void DNWindow::drawMainMenu()
     drawCommandLine();
     while ((ch = getch())) {
         if (ch == 127) {
-            int y,x;
+            int y = 0,x;
             getsyx(y, x);
             if (x == 9) {
                 beep();
@@ -249,7 +249,7 @@ bool DNWindow::executeMenuOption(string input)
     
     if (input == "Q" || input == "q") {
         endwin();
-        exit;
+        exit(0);
     }
     
     return false;
@@ -300,7 +300,7 @@ bool DNWindow::startLocalGameTwoHumans(string & nameOfPlayerOne, string &  nameO
     char ch;
     middleString("Please enter name of first player: ", w.ws_row / 2);
     bool nameOfFirstPlayer = false;
-    while (ch = getch()) {
+    while ((ch = getch())) {
         addch(ch);
         if (ch == 10) {
             if (nameOfFirstPlayer) {

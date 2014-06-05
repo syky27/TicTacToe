@@ -9,11 +9,11 @@
 #ifndef __TicTacToe__Player__
 #define __TicTacToe__Player__
 
-using namespace std;
+
 
 #include <iostream>
 #include "DNCellState.h"
-
+using namespace std;
 
 class DNPlayer{
 private:
