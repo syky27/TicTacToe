@@ -12,7 +12,8 @@
 #include <cstdio>
 #include <iostream>
 #include <sstream>
-
+#include <sys/ioctl.h>
+#include <unistd.h>
 #include "DNLogService.h"
 
 
@@ -25,39 +26,52 @@ DNDumbBotPlayer::DNDumbBotPlayer(string nick, DNCellState symbol, DNMap * map)
 
 bool DNDumbBotPlayer::triggerTurn(int y, int x)
 {
+    
+    struct winsize w;
+    ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
+    
+    int max_y, max_x;
+    max_y = w.ws_row;
+    max_x = w.ws_col;
+    
     int size = this->game_map->getMapSize();
     char ch;
     int x_rand = 0;
     int y_rand = 0;
     DNCellState state;
-    
-    x_rand = (random() % size);
-    y_rand = (random() % size);
-    
-    std::stringstream ss("fekal");
-    
-    ss << string("x_rand = ") << x_rand << string("y_rand = ") << y_rand << endl;
-    std::string to_log;
-    std::getline(ss, to_log, '\n');
-    DNLogService::sharedObject().log(to_log);
+        while(true){
+        x_rand = rand() % w.ws_col;
+        y_rand = rand() % w.ws_row;
+
+        y_rand = abs(y_rand + y);
+
+        y_rand = 2;
+        x_rand = 1;
     
     
-    if (this->game_map->recordMove(this->getSymbol(), abs(y_rand - 3), x - 0, state)) {
-        DNWindow::getInstance().drawSymbolBetter(this->getSymbol(), y, x);
-        if (state != EMPTY) {
-            if (state == this->getSymbol()) {
-                cout << this->getNick() << " is WINNER!!!" << endl;
+        if (this->game_map->recordMove(this->getSymbol(), y_rand, x_rand, state)) {
+            DNWindow::getInstance().drawSymbolBetter(this->getSymbol(),  x_rand, y_rand);
+               
+                std::stringstream ss("fekal");
+                ss << string("x_rand = ") << x_rand << " " << string("y_rand = ") << y_rand << endl;
+                std::string to_log;
+                std::getline(ss, to_log, '\n');
+                DNLogService::sharedObject().log(to_log);
+
+            if (state != EMPTY) {
+                if (state == this->getSymbol()) {
+                    cout << this->getNick() << " is WINNER!!!" << endl;
+                }
+                sleep(2);
+                DNWindow::getInstance().terminate();
+            }else{
+                return true;
             }
-            sleep(2);
-            DNWindow::getInstance().terminate();
         }else{
-            return true;
+            DNWindow::getInstance().sound();
+            DNWindow::getInstance().sound();
         }
-    }else{
-        DNWindow::getInstance().sound();
-        DNWindow::getInstance().sound();
     }
-            
             
            
         

@@ -8,8 +8,8 @@
 
 #include "DNWindow.h"
 #include "ncurses.h"
-#include <sys/ioctl.h>
 #include <stdio.h>
+#include <sys/ioctl.h>
 #include <unistd.h>
 #include "DNGame.h"
 #include "cstdlib"
@@ -367,6 +367,7 @@ void DNWindow::drawSymbolBetter(DNCellState state, int& x, int& y)
         beep();
         moveRight();
         moveLeft();
+        this->refreshDN();
     }
     else if (state == CIRCLE) {
 //        addch('O');
@@ -374,6 +375,7 @@ void DNWindow::drawSymbolBetter(DNCellState state, int& x, int& y)
         beep();
         moveRight();
         moveLeft();
+        this->refreshDN();
     }
     else {
         cout << "Fekal, prazdny symbol" << endl;

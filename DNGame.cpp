@@ -24,7 +24,7 @@ DNGame::DNGame(int i): y_offset(3), x_offset(0), playerOne(NULL), playerTwo(NULL
                 break;
                 }
         case 2:{
-//                initLocalGameHumanVsCPU();
+                initLocalGameHumanVsCPU();
                 break;
                 }
         case 27:{
@@ -51,10 +51,18 @@ void DNGame::initLocalGameTwoDumb()
 {
     string nameOfFirstPlayer;
     DNWindow::getInstance().startLocalGameHumanVsCPU(nameOfFirstPlayer);
+    this->playerOne = new DNDumbBotPlayer("Dumb",DNCellState(CROSS), & map);
+    this->playerTwo = new DNDumbBotPlayer("Dummer",DNCellState(CIRCLE), & map);
+}
+
+
+void DNGame::initLocalGameHumanVsCPU()
+{
+    string nameOfFirstPlayer;
+    DNWindow::getInstance().startLocalGameHumanVsCPU(nameOfFirstPlayer);
     this->playerOne = new DNHumanPlayer(nameOfFirstPlayer, DNCellState(CROSS), &map);
     this->playerTwo = new DNDumbBotPlayer("CPU",DNCellState(CIRCLE), & map);
 }
-
 
 
 
