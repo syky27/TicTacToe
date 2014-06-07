@@ -246,9 +246,6 @@ void DNWindow::clearScreen()
 
 void DNWindow::drawBoard(int start_Y, int start_X, int size)
 {
-    
-    
-    
     this->clearScreen();
     this->drawHeader();
 //    struct winsize w;
