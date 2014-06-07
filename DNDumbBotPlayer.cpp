@@ -8,7 +8,8 @@
 
 #include "DNDumbBotPlayer.h"
 #include "DNWindow.h"
-
+#include <cstdlib>
+#include <cstdio>
 
 DNDumbBotPlayer::DNDumbBotPlayer(string nick, DNCellState symbol, DNMap * map)
 {
@@ -21,7 +22,7 @@ bool DNDumbBotPlayer::triggerTurn(int y, int x)
 {
     
     
-    int size = this->game_map->get
+    int size = this->game_map->getMapSize();
     
     
     char ch;

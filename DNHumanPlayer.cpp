@@ -8,6 +8,9 @@
 
 #include "DNHumanPlayer.h"
 #include "DNWindow.h"
+#include <cstdlib>
+#include <iostream>
+#include <cstdio>
 
 DNHumanPlayer::DNHumanPlayer(string nick, DNCellState symbol, DNMap * map)
 {
