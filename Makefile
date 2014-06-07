@@ -1,2 +1,2 @@
 all:
-	g++ -lncurses *.cpp -g -o TicTacToe.bin
+	g++ *.cpp -lncurses -g -o TicTacToe.bin
