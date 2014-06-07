@@ -232,7 +232,7 @@ bool DNWindow::executeMenuOption(string input)
             case 2:{
                 DNGame a(2);
                 drawBoard(3,0,100);
-//                a.play();
+                a.playVsCPU();
                 //TODO: Player player
             }
                 break;
@@ -353,6 +353,7 @@ bool DNWindow::startLocalGameHumanVsCPU(string &nameOfPlayerOne)
                 }else{
                     clearScreen();
                     drawHeader();
+                    return true;
                 }
         
         }

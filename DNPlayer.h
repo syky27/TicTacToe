@@ -28,6 +28,7 @@ private:
     DNMap * game_map;
     */
 public:
+    DNPlayer(){}
     DNPlayer(string name, DNCellState symbol);
     bool makeMove(size_t x_position, size_t y_position);
     void moveRight();

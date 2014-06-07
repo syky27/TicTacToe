@@ -8,8 +8,3 @@
 
 #include "DNHumanPlayer.h"
 
-/*
-DNHumanPlayer::DNHumanPlayer(string name)
-{
-    //this->nick = name;
-}*/

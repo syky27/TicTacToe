@@ -8,15 +8,15 @@
 
 #ifndef __TicTacToe__HumanPlayer__
 #define __TicTacToe__HumanPlayer__
-/*
-#include <iostream>
 #include "DNPlayer.h"
-class DNHumanPlayer : public  DNPlayer{
+class DNHumanPlayer : DNPlayer  {
     
     
 public:
-    DNHumanPlayer(string name);
+    DNHumanPlayer(){}
+    ~DNHumanPlayer(){}
+    
 
 };
-*/
-#endif /* defined(__TicTacToe__HumanPlayer__) */
+
+#endif

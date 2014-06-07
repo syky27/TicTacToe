@@ -13,6 +13,7 @@
 #include "stdio.h"
 #include "DNLogService.h"
 #include "DNBotPlayer.h"
+#include <cstdlib>
 DNGame::DNGame(int i): y_offset(3), x_offset(0)
 {
     switch (i) {
@@ -21,6 +22,7 @@ DNGame::DNGame(int i): y_offset(3), x_offset(0)
             break;
         case 2:
             initLocalGameHumanVsCPU();
+            break;
         default:
             break;
     }
@@ -137,8 +139,10 @@ void DNGame::play()
 void DNGame::playVsCPU()
 {
     char ch;
-    int turnCounter = 1;
-    
+    int turnCounter = 0;
+    int x = 0;
+    int y = 0;
+    DNCellState state;
     while ((ch = getchar())) {
         if (ch == /*0x1B ||*/ '\e') {
             ch = getchar();
@@ -165,45 +169,67 @@ void DNGame::playVsCPU()
         }
         
         if (ch == 'x') {
-            DNLogService::sharedObject().log(string("Test"));
-            int x = 0;
-            int y = 0;
             turnCounter++;
-            DNCellState state;
+
             if (turnCounter % 2) {
                 DNWindow::getInstance().getCursorPosition(x, y);
                 if (map.recordMove(playerOne, y - y_offset, x - x_offset, state)) {
                     DNWindow::getInstance().drawSymbol(CIRCLE, y, x);
                 }else{
                     DNWindow::getInstance().sound();
-                }
-                
-            }else{
-                DNWindow::getInstance().getCursorPosition(x, y);
-                if (map.recordMove(playerOne, y - y_offset, x - x_offset, state)) {
-                    DNWindow::getInstance().drawSymbol(CROSS, y, x);
-                }else{
                     DNWindow::getInstance().sound();
                 }
-            }
-            if (state != EMPTY) {
-                if (state == playerTwo->getSymbol()) {
-                    cout << playerTwo->getNick() << " is WINNER!!!" << endl;
-                }else if(state == playerOne->getSymbol()){
-                    cout << playerOne->getNick() << " is WINNER!!!" << endl;
-                }else{
-                    cout << "fekal error wrong return of state" << endl;
+                
+                if (state != EMPTY) {
+                    if (state == playerTwo->getSymbol()) {
+                        cout << playerTwo->getNick() << " is WINNER!!!" << endl;
+                        sleep(5);
+                        exit(0);
+                    }else if(state == playerOne->getSymbol()){
+                        cout << playerOne->getNick() << " is WINNER!!!" << endl;
+                        sleep(5);
+                        exit(0);
+                    }else{
+                        cout << "fekal error wrong return of state" << endl;
+                    }
+                    
                 }
-                sleep(2);
-                exit(0);
+                
+                bool run = false;
+                while (!run) {
+                    int y_rand = (rand() % 100)+3;
+                    int x_rand = rand() % 100;
+                    
+                    run = map.recordMove(playerOne, y_rand - y_offset, x_rand - x_offset, state);
+                    DNWindow::getInstance().drawSymbol(CROSS, y_rand, x_rand);
+
+                }
+
+                if (state != EMPTY) {
+                    if (state == playerTwo->getSymbol()) {
+                        cout << playerTwo->getNick() << " is WINNER!!!" << endl;
+                        sleep(5);
+                        exit(0);
+                    }else if(state == playerOne->getSymbol()){
+                        cout << playerOne->getNick() << " is WINNER!!!" << endl;
+                        sleep(5);
+                        exit(0);
+                    }else{
+                        cout << "fekal error wrong return of state" << endl;
+                    }
+                    
+                }
+                
             }
+            }
+        
             
         }
         
         if (ch == 'q') {
             exit(0);
         }
-    }
+    
 }
 
 
