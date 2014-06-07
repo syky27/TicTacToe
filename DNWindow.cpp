@@ -248,38 +248,31 @@ void DNWindow::drawBoard(int start_Y, int start_X, int size)
 {
     this->clearScreen();
     this->drawHeader();
-//    struct winsize w;
-//    ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
-//    
-//    int max_y, max_x;
-//    max_y = w.ws_row;
-//    max_x = w.ws_col;
-//
-//
-//    start_color();
-//    use_default_colors();
-//    init_pair(2, COLOR_WHITE, -1);
-//    attroff(COLOR_PAIR(1));
-//    attron(2);
-//    clearScreen();
-//    drawHeader();
-//
-//
-//    move(start_Y, start_X);
-//
-//    for (int y = 0; y < size; y++) {
-//        for (int x = 0; x < size * 2; x++) {
-//            mvaddch(start_Y + y, start_X + x, ACS_CKBOARD);
-//        }
-//    }
-//
-//    refresh();
-//    return;
+    this->refreshDN();
+    
+    struct winsize w;
+    ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
+    
+    int max_y, max_x;
+    max_y = w.ws_row;
+    max_x = w.ws_col;
+
+
+
+    move(start_Y, start_X);
+
+    for (int y = 0; y < size; y++) {
+        for (int x = 0; x < size * 2; x++) {
+            mvaddch(start_Y + y, start_X + x, ACS_CKBOARD);
+        }
+    }
+
+    this->refreshDN();
+    return;
 }
 
 bool DNWindow::startLocalGameTwoHumans(string & nameOfPlayerOne, string & nameOfPlayerTwo)
 {
-    //    noraw();a
     struct winsize w;
     ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
     clearScreen();
@@ -385,6 +378,14 @@ void DNWindow::sound()
 {
     beep();
 }
+
+
+void DNWindow::refreshDN()
+{
+    refresh();
+}
+
+
 
 void DNWindow::terminate()
 {

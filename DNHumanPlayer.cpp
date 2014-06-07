@@ -61,7 +61,7 @@ bool DNHumanPlayer::triggerTurn(int y, int x)
                             cout << this->getNick() << " is WINNER!!!" << endl;
                         }
                         sleep(2);
-                        exit(0);
+                        DNWindow::getInstance().terminate();
                     }else{
                         return true;
                     }
@@ -72,7 +72,7 @@ bool DNHumanPlayer::triggerTurn(int y, int x)
                 
                 
             if (ch == 'q') {
-                exit(0);
+                DNWindow::getInstance().terminate();
             }
         }
     }
