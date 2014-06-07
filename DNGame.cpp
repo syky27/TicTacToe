@@ -14,6 +14,7 @@
 #include "DNLogService.h"
 #include "DNBotPlayer.h"
 #include "DNHumanPlayer.h"
+#include "DNDumbBotPlayer.h"
 #include <cstdlib>
 DNGame::DNGame(int i): y_offset(3), x_offset(0), playerOne(NULL), playerTwo(NULL)
 {
@@ -26,6 +27,10 @@ DNGame::DNGame(int i): y_offset(3), x_offset(0), playerOne(NULL), playerTwo(NULL
 //                initLocalGameHumanVsCPU();
                 break;
                 }
+        case 27:{
+            initLocalGameTwoDumb();
+            break;
+        }
         default:{
                 break;
                 }
@@ -40,10 +45,15 @@ void DNGame::initLocalGameTwoHumans()
     DNWindow::getInstance().startLocalGameTwoHumans(nameOfFirstPlayer, nameOfSecondPlayer);
     this->playerOne = new DNHumanPlayer(nameOfFirstPlayer, DNCellState(CROSS), &map);
     this->playerTwo = new DNHumanPlayer(nameOfSecondPlayer, DNCellState(CIRCLE), &map);
-//    this->playerOne->setColorSet(1);
-//    this->playerTwo->setColorSet(2);
 }
 
+void DNGame::initLocalGameTwoDumb()
+{
+    string nameOfFirstPlayer;
+    DNWindow::getInstance().startLocalGameHumanVsCPU(nameOfFirstPlayer);
+    this->playerOne = new DNHumanPlayer(nameOfFirstPlayer, DNCellState(CROSS), &map);
+    this->playerTwo = new DNDumbBotPlayer("CPU",DNCellState(CIRCLE), & map);
+}
 
 
 

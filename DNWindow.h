@@ -44,6 +44,7 @@ public:
     
     void getCursorPosition(int & x, int &y);
     void drawSymbol(DNCellState state, int & x, int &y);
+    void drawSymbolBetter(DNCellState state, int & x, int & y);
     
     
     void sound();

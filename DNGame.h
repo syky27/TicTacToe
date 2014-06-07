@@ -24,6 +24,7 @@ class DNGame {
     
     void initLocalGameTwoHumans();
 //    void initLocalGameHumanVsCPU();
+    void initLocalGameTwoDumb();
     
 
 public:

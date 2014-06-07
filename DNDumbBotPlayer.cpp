@@ -10,6 +10,11 @@
 #include "DNWindow.h"
 #include <cstdlib>
 #include <cstdio>
+#include <iostream>
+#include <sstream>
+
+#include "DNLogService.h"
+
 
 DNDumbBotPlayer::DNDumbBotPlayer(string nick, DNCellState symbol, DNMap * map)
 {
@@ -20,65 +25,42 @@ DNDumbBotPlayer::DNDumbBotPlayer(string nick, DNCellState symbol, DNMap * map)
 
 bool DNDumbBotPlayer::triggerTurn(int y, int x)
 {
-    
-    
     int size = this->game_map->getMapSize();
-    
-    
     char ch;
-    while ((ch = getchar())) {
-        //        cout << ch << endl;
-        if (ch == /*0x1B ||*/ '\e') {
-            ch = getchar();
-            if (ch == /*0x5B ||*/ 'O') {
-                ch = getchar();
-                if (ch == /*0x41 ||*/ 'A') {
-                    //Up Arrow
-                    DNWindow::getInstance().moveUp();
-                    continue;
-                }else if (ch == /*0x42 ||*/ 'B') {
-                    // Down Arrow
-                    DNWindow::getInstance().moveDown();
-                    continue;
-                }else if (ch == /*0x44 ||*/ 'D'){
-                    //Left Arrow
-                    DNWindow::getInstance().moveLeft();
-                    continue;
-                }else if (ch == /*0x43 ||*/ 'C'){
-                    //Right Arrow
-                    DNWindow::getInstance().moveRight();
-                    continue;
-                }
+    int x_rand = 0;
+    int y_rand = 0;
+    DNCellState state;
+    
+    x_rand = (random() % size);
+    y_rand = (random() % size);
+    
+    std::stringstream ss("fekal");
+    
+    ss << string("x_rand = ") << x_rand << string("y_rand = ") << y_rand << endl;
+    std::string to_log;
+    std::getline(ss, to_log, '\n');
+    DNLogService::sharedObject().log(to_log);
+    
+    
+    if (this->game_map->recordMove(this->getSymbol(), abs(y_rand - 3), x - 0, state)) {
+        DNWindow::getInstance().drawSymbolBetter(this->getSymbol(), y, x);
+        if (state != EMPTY) {
+            if (state == this->getSymbol()) {
+                cout << this->getNick() << " is WINNER!!!" << endl;
             }
+            sleep(2);
+            DNWindow::getInstance().terminate();
+        }else{
+            return true;
         }
-        
-        if (ch == 'x') {
-            int x = 0;
-            int y = 0;
-            DNCellState state;
-            
-            DNWindow::getInstance().getCursorPosition(x, y);
-            if (this->game_map->recordMove(this->getSymbol(), y - 3, x - 0, state)) {
-                DNWindow::getInstance().drawSymbol(this->getSymbol(), y, x);
-                if (state != EMPTY) {
-                    if (state == this->getSymbol()) {
-                        cout << this->getNick() << " is WINNER!!!" << endl;
-                    }
-                    sleep(2);
-                    exit(0);
-                }else{
-                    return true;
-                }
-            }else{
-                DNWindow::getInstance().sound();
-                DNWindow::getInstance().sound();
-            }
-            
-            
-            if (ch == 'q') {
-                exit(0);
-            }
-        }
+    }else{
+        DNWindow::getInstance().sound();
+        DNWindow::getInstance().sound();
     }
+            
+            
+           
+        
+    
     return true;
 }

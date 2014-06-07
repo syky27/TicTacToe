@@ -218,7 +218,12 @@ bool DNWindow::executeMenuOption(string input)
         case 3:
             //TODO: Player player
             break;
-
+        case 27:{
+            DNGame a(27);
+            drawBoard(3,0,100);
+            a.play();
+        }
+            
         default:
             break;
         }
@@ -352,6 +357,27 @@ void DNWindow::allowMacDev()
 void DNWindow::getCursorPosition(int & x, int &y)
 {
     getsyx(y, x);
+}
+
+void DNWindow::drawSymbolBetter(DNCellState state, int& x, int& y)
+{
+    if (state == CROSS) {
+        mvaddch(y, x, 'X');
+//        addch('X');
+        beep();
+        moveRight();
+        moveLeft();
+    }
+    else if (state == CIRCLE) {
+//        addch('O');
+        mvaddch(y, x, 'O');
+        beep();
+        moveRight();
+        moveLeft();
+    }
+    else {
+        cout << "Fekal, prazdny symbol" << endl;
+    }
 }
 
 void DNWindow::drawSymbol(DNCellState state, int & x, int &y)
