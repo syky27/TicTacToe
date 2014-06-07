@@ -7,12 +7,13 @@
 //
 
 #include "DNPlayer.h"
+#include "DNMap.h"
 
 
-DNPlayer::DNPlayer(string name, DNCellState symbol){
-    this->nick = name;
-    this->symbol = symbol;
-}
+//DNPlayer::DNPlayer(string name, DNCellState symbol){
+//    this->nick = name;
+//    this->symbol = symbol;
+//}
 
 void DNPlayer::setColorSet(int i)
 {

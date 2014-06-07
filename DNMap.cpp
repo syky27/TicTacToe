@@ -37,6 +37,11 @@ DNMap::~DNMap(){
     
 }
 
+size_t DNMap::getMapSize()
+{
+    return this->size;
+}
+
 
 DNCellState DNMap::checkForWinnerWithSymbol(DNCellState symbol){                                                           // check, which checks for backwards diagonal runs below >>>
     int row = 0, col = 0, i = 0;
@@ -116,20 +121,28 @@ DNCellState DNMap::checkForWinnerWithSymbol(DNCellState symbol){                
     return EMPTY;                                           // If we got to here, no winner has been detected,
 }
 
-bool DNMap::recordMove(DNPlayer * player, int y, int x, DNCellState & winner){
-    DNLogService::sharedObject().log(string("x = ") + string(to_string(y)));
-    
+//bool DNMap::recordMove(DNPlayer * player, int y, int x, DNCellState & winner){
+//    DNLogService::sharedObject().log(string("x = ") + string(to_string(y)));
+//    
+//    if (this->my_map[x][y]->getState() == EMPTY) {
+//        this->my_map[x][y]->setState(player->getSymbol());
+//        winner = this->checkForWinnerWithSymbol(player->getSymbol());
+//        return true;
+//    }
+//    
+//    return false;
+//}
+
+bool DNMap::recordMove(DNCellState  player, int y, int x, DNCellState & winner){
+//    DNLogService::sharedObject().log(string("x = ") + string(to_string(y)));
     if (this->my_map[x][y]->getState() == EMPTY) {
-        this->my_map[x][y]->setState(player->getSymbol());
-        winner = this->checkForWinnerWithSymbol(player->getSymbol());
+        this->my_map[x][y]->setState(player);
+        winner = this->checkForWinnerWithSymbol(player);
         return true;
     }
     
-    
-    
     return false;
 }
-
 
 
 

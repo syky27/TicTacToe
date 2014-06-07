@@ -13,10 +13,11 @@
 
 #include <iostream>
 #include "DNCellState.h"
+#include "DNMap.h"
 using namespace std;
 
 class DNPlayer{
-private:
+protected:
     string nick;
     DNCellState symbol;
     size_t x_position;
@@ -24,18 +25,17 @@ private:
     int colorSet;
     
     
-    /*
-    DNMap * game_map;
-    */
+    
+    
 public:
-    DNPlayer(){}
-    DNPlayer(string name, DNCellState symbol);
+//    DNPlayer(){}
+//    DNPlayer(string name, DNCellState symbol);
     bool makeMove(size_t x_position, size_t y_position);
     void moveRight();
     void moveLeft();
     void moveUp();
     void moveDown();
-    bool triggerTurn(int y, int x);
+    virtual bool triggerTurn(int y, int x);
     void setColorSet(int i);
     DNCellState getSymbol();
     string getNick();

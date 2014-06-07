@@ -27,13 +27,17 @@ public:
 public:
     DNMap();
     ~DNMap();
+    size_t getMapSize();
 
     /**
      * returns given symbol back if player with this symbol has won
      * returns EMPTY when no winner
      */
     DNCellState checkForWinnerWithSymbol(DNCellState symbol);
-    bool recordMove(DNPlayer * player, int y, int x, DNCellState & winner);
+//    bool recordMove(DNPlayer * player, int y, int x, DNCellState & winner);
+    bool recordMove(DNCellState player, int y, int x, DNCellState & winnner);
+
+    
     
 
 };

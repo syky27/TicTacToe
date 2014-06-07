@@ -232,7 +232,7 @@ bool DNWindow::executeMenuOption(string input)
             case 2:{
                 DNGame a(2);
                 drawBoard(3,0,100);
-                a.playVsCPU();
+                a.play();
                 //TODO: Player player
             }
                 break;

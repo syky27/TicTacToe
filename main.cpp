@@ -7,10 +7,6 @@
 using namespace std;
 
 int main(){
-    
-   
-//    player = new DN
-    
     DNWindow::getInstance().init();
     return 0;
 }

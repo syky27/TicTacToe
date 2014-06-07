@@ -10,5 +10,18 @@
 #define __TicTacToe__DNDumbBotPlayer__
 
 #include <iostream>
+#include "DNPlayer.h"
+class DNDumbBotPlayer : public DNPlayer  {
+    
+    
+public:
+    DNDumbBotPlayer(string nick, DNCellState symbol, DNMap * map);
+    ~DNDumbBotPlayer(){}
+    
+    bool triggerTurn(int y, int x);
+    DNMap * game_map;
+    
+};
+
 
 #endif /* defined(__TicTacToe__DNDumbBotPlayer__) */

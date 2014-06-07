@@ -9,13 +9,16 @@
 #ifndef __TicTacToe__HumanPlayer__
 #define __TicTacToe__HumanPlayer__
 #include "DNPlayer.h"
-class DNHumanPlayer : DNPlayer  {
+#include "DNMap.h"
+class DNHumanPlayer : public DNPlayer  {
     
     
 public:
-    DNHumanPlayer(){}
+    DNHumanPlayer(string nick, DNCellState symbol, DNMap * map);
     ~DNHumanPlayer(){}
     
+    bool triggerTurn(int y, int x);
+    DNMap * game_map;
 
 };
 

@@ -13,8 +13,7 @@
 #include "DNBotPlayer.h"
 #include <iostream>
 class DNGame {
-    DNPlayer *playerOne;
-    DNPlayer *playerTwo;
+    
 
     
     DNMap map;
@@ -24,15 +23,15 @@ class DNGame {
     unsigned int y_offset, x_offset;
     
     void initLocalGameTwoHumans();
-    void initLocalGameHumanVsCPU();
+//    void initLocalGameHumanVsCPU();
     
 
 public:
     DNGame(int i);
     ~DNGame();
     void play();
-    void playVsCPU();
-    
+    DNPlayer *playerOne;
+    DNPlayer *playerTwo;
 };
 
 
