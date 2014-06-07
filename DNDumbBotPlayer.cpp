@@ -65,6 +65,7 @@ bool DNDumbBotPlayer::triggerTurn(int y, int x)
                 sleep(2);
                 DNWindow::getInstance().terminate();
             }else{
+                
                 return true;
             }
         }else{
