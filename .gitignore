@@ -1,0 +1,7 @@
+*.bin
+*.dSYM
+/build/
+log.txt
+nbproject/
+Doxyfile_OLD
+

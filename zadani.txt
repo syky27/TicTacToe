@@ -1,0 +1,1 @@
+Piškvorky s umělou inteligencí. Rozhraní naprogramujte pomocí ncurses. Zkuste vytvořit nějakou jednoduchou formu "umělé inteligence" tak aby si uživatel mohl zahrát proti počítači. Program musí umožňovat hru dvou hráčů po síti. 
